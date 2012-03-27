@@ -353,6 +353,15 @@ void spi_cs_deactivate(struct spi_slave *slave)
 }
 #endif /* CONFIG_ATMEL_SPI */
 
+static void at91sam9x5ek_pinmux_init(void)
+{
+	/* USB host (rev. B) */
+	at91_set_gpio_output(AT91_PIN_PD18, 1);	/* active low */
+	at91_set_gpio_output(AT91_PIN_PD19, 1);	/* active low */
+	at91_set_gpio_output(AT91_PIN_PD20, 1);	/* active low */
+	at91_set_gpio_input(AT91_PIN_PB17, 1); /* over current */
+}
+
 
 int board_init(void)
 {
@@ -387,6 +396,9 @@ int board_init(void)
 #ifdef CONFIG_LCD
 	at91sam9x5ek_lcd_hw_init();
 #endif
+
+	at91sam9x5ek_pinmux_init();
+
 	return 0;
 }
 
