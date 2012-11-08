@@ -38,6 +38,7 @@
 #elif defined(CONFIG_USART3)
 # define USART_ID	3
 # define USART_BASE	USART3_BASE
+# define USART_BASE USARTDBGU_BASE
 #endif
 
 #include "atmel_usart.h"

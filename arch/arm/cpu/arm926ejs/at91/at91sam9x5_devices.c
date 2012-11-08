@@ -112,9 +112,13 @@ void at91_serial3_hw_init(void)
 	/* MUX PIO periph A */
 	at91_set_a_periph(AT91_PIO_PORTA, 9, 0);	/* DRXD */
 	at91_set_a_periph(AT91_PIO_PORTA, 10, 1);	/* DTXD */
+	
+	at91_set_a_periph(AT91_PIO_PORTA, 1, 0);	/* RXD0 */
+	at91_set_a_periph(AT91_PIO_PORTA, 0, 1);	/* TXD0 */
 
 	at91_port_t *pioa = (at91_port_t *) (0xFFFFF400);
-	pioa->pdr = AT91C_PA9_DRXD | AT91C_PA10_DTXD;
+	pioa->pdr = AT91C_PA9_DRXD | AT91C_PA10_DTXD
+						| AT91C_PA1_RXD0 | AT91C_PA0_TXD0;
 
 	/* Enable TX + RX */
 	usart3_writel(CR, USART3_BIT(TXEN));
@@ -126,6 +130,7 @@ void at91_serial_hw_init(void)
 #ifdef CONFIG_USART3	/* DBGU */
 	at91_serial3_hw_init();
 #endif
+	at91_set_a_periph(AT91_PIO_PORTC, 4, 0); /* Green LED Init to ON. */
 }
 
 #ifdef CONFIG_ATMEL_SPI

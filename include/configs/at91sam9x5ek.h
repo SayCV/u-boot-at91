@@ -60,11 +60,18 @@
 /* DBGU */
 #define CONFIG_ATMEL_USART	1
 #define CONFIG_USART3		1	/* USART 3 is DBGU */
-#define USART_BASE	USART3_BASE
+#define USART_BASE	USART3_BASE	/* See arch/.../arch-at91/memory-map.h and driver/serial/atmel_usart.c to ensure which usart has used. */
+
 #define AT91C_PIO_PA9         (1 << 9)	/* Pin Controlled by PA9 */
 #define AT91C_PA9_DRXD        (AT91C_PIO_PA9)
 #define AT91C_PIO_PA10        (1 << 10)	/* Pin Controlled by PA10 */
 #define AT91C_PA10_DTXD       (AT91C_PIO_PA10)
+
+#define AT91C_PIO_PA1         (1 << 1)	/* Pin Controlled by PA1 */
+#define AT91C_PIO_PA0        (1 << 0)	/* Pin Controlled by PA0 */
+#define AT91C_PA1_RXD0        (AT91C_PIO_PA1)
+#define AT91C_PA0_TXD0       (AT91C_PIO_PA0)
+
 
 /* LCD */
 //#define CONFIG_LCD			1
@@ -85,7 +92,7 @@
 /* LED */
 #define CONFIG_AT91_LED
 #define	CONFIG_RED_LED		AT91_PIN_PD31	/* this is the user1 led */
-#define	CONFIG_GREEN_LED	AT91_PIN_PD0	/* this is the user2 led */
+#define	CONFIG_GREEN_LED	AT91_PIN_PC4	/* this is the user2 led */
 
 #define CONFIG_BOOTDELAY	1
 
@@ -230,7 +237,9 @@
 #define CONFIG_STACKSIZE	(32*1024)	/* regular stack */
 
 #ifdef CONFIG_USE_IRQ
-#error CONFIG_USE_IRQ not supported
+//#error CONFIG_USE_IRQ not supported
+#define CONFIG_STACKSIZE_IRQ	(4*1024)	/* IRQ stack */
+#define CONFIG_STACKSIZE_FIQ	(4*1024)	/* FIQ stack */
 #endif
 
 #endif
