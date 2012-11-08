@@ -51,6 +51,24 @@
 #define AT91SAM9X5_ID_SSC	28	/* Synchronous Serial Controller */
 #define AT91SAM9X5_ID_IRQ	31	/* Advanced Interrupt Controller */
 
+#define  AT91_ID_MAX                             32
+
+#define  BSP_INT_SCR_TYPE_INT_HIGH_LEVEL_SENSITIVE         0    /* Internal Interrupt High Level Sensitive            */
+#define  BSP_INT_SCR_TYPE_INT_POSITIVE_EDGE_TRIG           1    /* Internal Interrupt Positive Edge Trigerred         */
+#define  BSP_INT_SCR_TYPE_EXT_LOW_LEVEL_SENSITIVE          2    /* External Interrupt Low Level Sensitive             */
+#define  BSP_INT_SCR_TYPE_EXT_HIGH_LEVEL_SENSITIVE         3    /* External Interrupt Negative Edge Trigerred         */
+#define  BSP_INT_SCR_TYPE_EXT_NEGATIVE_EDGE_TRIG           4    /* External Interrupt High Level Sensitive            */         
+#define  BSP_INT_SCR_TYPE_EXT_POSITIVE_EDGE_TRIG           5    /* External Interrupt Positive Edge triggered         */
+
+                                                                /* ------------ INTERRUPT PRIORITY DEFINES ---------- */
+#define  BSP_INT_PRIO_HIGHEST                              7
+#define  BSP_INT_PRIO_LOWEST                               0
+                         
+                                                                /* ---------------- INTERRUPT TYPE DEFINES ---------- */
+#define  BSP_INT_CTRL_TYPE_IRQ                             0
+#define  BSP_INT_CTRL_TYPE_FIQ                             1
+
+typedef            void      (*CPU_FNCT_VOID)(void);
 
 #define AT91_EMAC0_BASE		0xf802c000
 #define AT91_EMAC1_BASE		0xf8030000
