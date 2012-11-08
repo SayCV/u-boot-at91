@@ -33,6 +33,10 @@
 
 unsigned long get_mck_clk_rate(void);
 
+#ifdef CONFIG_USE_IRQ
+#define CONFIG_TIMER_IRQ
+#endif
+
 #ifdef CONFIG_TIMER_IRQ
 /*
  * When interrupts are enabled, use timer 2 for time/delay generation...

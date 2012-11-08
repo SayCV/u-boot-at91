@@ -37,7 +37,7 @@
 #define CONFIG_AT91SAM9X5	1
 
 #define CONFIG_ARCH_CPU_INIT
-#undef CONFIG_USE_IRQ			/* we don't need IRQ/FIQ stuff	*/
+#define CONFIG_USE_IRQ			/* we don't need IRQ/FIQ stuff	*/
 
 #define CONFIG_CMDLINE_TAG	1	/* enable passing of ATAGs	*/
 #define CONFIG_SETUP_MEMORY_TAGS 1
