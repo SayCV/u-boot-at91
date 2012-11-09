@@ -376,30 +376,35 @@ do_hang:
 	bl	1b				/* hang and never return */
 #else	/* !CONFIG_PRELOADER */
 	.align  5
+.globl undefined_instruction
 undefined_instruction:
 	get_bad_stack
 	bad_save_user_regs
 	bl	do_undefined_instruction
 
 	.align	5
+.globl software_interrupt
 software_interrupt:
 	get_bad_stack
 	bad_save_user_regs
 	bl	do_software_interrupt
 
 	.align	5
+.globl prefetch_abort
 prefetch_abort:
 	get_bad_stack
 	bad_save_user_regs
 	bl	do_prefetch_abort
 
 	.align	5
+.globl data_abort
 data_abort:
 	get_bad_stack
 	bad_save_user_regs
 	bl	do_data_abort
 
 	.align	5
+.globl not_used
 not_used:
 	get_bad_stack
 	bad_save_user_regs
@@ -408,6 +413,7 @@ not_used:
 #ifdef CONFIG_USE_IRQ
 
 	.align	5
+.globl irq
 irq:
 	get_irq_stack
 	irq_save_user_regs
@@ -415,6 +421,7 @@ irq:
 	irq_restore_user_regs
 
 	.align	5
+.globl fiq
 fiq:
 	get_fiq_stack
 	/* someone ought to write a more effiction fiq_save_user_regs */

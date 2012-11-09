@@ -86,7 +86,7 @@ int timer_init (void)
                                                                 /* Set the vector address for PIT.                    */
 	BSP_IntClr(AT91_ID_SYS);
 
-	irq_install_handler((u8   )AT91_ID_SYS,
+	CSP_IntVectSet((u8   )AT91_ID_SYS,
 											(u8   )BSP_INT_PRIO_LOWEST,
 											(u8   )BSP_INT_SCR_TYPE_INT_HIGH_LEVEL_SENSITIVE,
 											(CPU_FNCT_VOID)timer_isr );

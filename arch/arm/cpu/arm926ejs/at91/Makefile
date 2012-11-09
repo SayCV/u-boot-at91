@@ -40,7 +40,8 @@ COBJS-y += clock.o
 COBJS-y += cpu.o
 COBJS-y	+= reset.o
 COBJS-y	+= timer.o
-
+COBJS-$(CONFIG_USE_IRQ)	+= interrupts.o  
+ 
 ifndef CONFIG_SKIP_LOWLEVEL_INIT
 SOBJS-y	:= lowlevel_init.o
 endif

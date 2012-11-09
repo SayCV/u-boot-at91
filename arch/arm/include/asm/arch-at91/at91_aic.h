@@ -63,9 +63,9 @@ typedef struct at91_aic {
 #define BSP_IntDisAll()						(BSP_INT_AIC_IDCR = 0xFFFFFFFF)
 #define BSP_IntEn(per_id)				  (BSP_INT_AIC_IECR	= (1<<per_id))
 
-void irq_install_handler (u8     per_id,
-                      		u8     int_prio,
-                      		u8     int_src_type,
-                      		CPU_FNCT_VOID  int_isr_fnct);
+void CSP_IntVectSet (u8     per_id,
+										 u8     int_prio,
+										 u8     int_src_type,
+										 CPU_FNCT_VOID  int_isr_fnct);
                       		
 #endif

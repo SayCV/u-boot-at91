@@ -38,7 +38,80 @@
 #include <asm/arch/io.h>
 #include <asm/proc-armv/ptrace.h>
 
+/*
+*********************************************************************************************************
+*                                           EXCEPTION DEFINES
+*********************************************************************************************************
+*/
+
+                                                 /* ARM exception IDs                                  */
+#define  OS_CPU_ARM_EXCEPT_RESET                                                                    0x00
+#define  OS_CPU_ARM_EXCEPT_UNDEF_INSTR                                                              0x01
+#define  OS_CPU_ARM_EXCEPT_SWI                                                                      0x02
+#define  OS_CPU_ARM_EXCEPT_PREFETCH_ABORT                                                           0x03
+#define  OS_CPU_ARM_EXCEPT_DATA_ABORT                                                               0x04
+#define  OS_CPU_ARM_EXCEPT_ADDR_ABORT                                                               0x05
+#define  OS_CPU_ARM_EXCEPT_IRQ                                                                      0x06
+#define  OS_CPU_ARM_EXCEPT_FIQ                                                                      0x07
+#define  OS_CPU_ARM_EXCEPT_NBR                                                                      0x08
+                                                 /* ARM exception vectors addresses                    */
+#define  OS_CPU_ARM_EXCEPT_RESET_VECT_ADDR              (OS_CPU_ARM_EXCEPT_RESET          * 0x04 + 0x00)
+#define  OS_CPU_ARM_EXCEPT_UNDEF_INSTR_VECT_ADDR        (OS_CPU_ARM_EXCEPT_UNDEF_INSTR    * 0x04 + 0x00)
+#define  OS_CPU_ARM_EXCEPT_SWI_VECT_ADDR                (OS_CPU_ARM_EXCEPT_SWI            * 0x04 + 0x00)
+#define  OS_CPU_ARM_EXCEPT_PREFETCH_ABORT_VECT_ADDR     (OS_CPU_ARM_EXCEPT_PREFETCH_ABORT * 0x04 + 0x00)
+#define  OS_CPU_ARM_EXCEPT_DATA_ABORT_VECT_ADDR         (OS_CPU_ARM_EXCEPT_DATA_ABORT     * 0x04 + 0x00)
+#define  OS_CPU_ARM_EXCEPT_ADDR_ABORT_VECT_ADDR         (OS_CPU_ARM_EXCEPT_ADDR_ABORT     * 0x04 + 0x00)
+#define  OS_CPU_ARM_EXCEPT_IRQ_VECT_ADDR                (OS_CPU_ARM_EXCEPT_IRQ            * 0x04 + 0x00)
+#define  OS_CPU_ARM_EXCEPT_FIQ_VECT_ADDR                (OS_CPU_ARM_EXCEPT_FIQ            * 0x04 + 0x00)
+
+                                                 /* ARM exception handlers addresses                   */
+#define  OS_CPU_ARM_EXCEPT_RESET_HANDLER_ADDR           (OS_CPU_ARM_EXCEPT_RESET          * 0x04 + 0x20)
+#define  OS_CPU_ARM_EXCEPT_UNDEF_INSTR_HANDLER_ADDR     (OS_CPU_ARM_EXCEPT_UNDEF_INSTR    * 0x04 + 0x20)
+#define  OS_CPU_ARM_EXCEPT_SWI_HANDLER_ADDR             (OS_CPU_ARM_EXCEPT_SWI            * 0x04 + 0x20)
+#define  OS_CPU_ARM_EXCEPT_PREFETCH_ABORT_HANDLER_ADDR  (OS_CPU_ARM_EXCEPT_PREFETCH_ABORT * 0x04 + 0x20)
+#define  OS_CPU_ARM_EXCEPT_DATA_ABORT_HANDLER_ADDR      (OS_CPU_ARM_EXCEPT_DATA_ABORT     * 0x04 + 0x20)
+#define  OS_CPU_ARM_EXCEPT_ADDR_ABORT_HANDLER_ADDR      (OS_CPU_ARM_EXCEPT_ADDR_ABORT     * 0x04 + 0x20)
+#define  OS_CPU_ARM_EXCEPT_IRQ_HANDLER_ADDR             (OS_CPU_ARM_EXCEPT_IRQ            * 0x04 + 0x20)
+#define  OS_CPU_ARM_EXCEPT_FIQ_HANDLER_ADDR             (OS_CPU_ARM_EXCEPT_FIQ            * 0x04 + 0x20)
+
+                                                 /* ARM "Jump To Self" asm instruction                 */
+#define  OS_CPU_ARM_INSTR_JUMP_TO_SELF                   0xEAFFFFFE
+                                                 /* ARM "Jump To Exception Handler" asm instruction    */
+#define  OS_CPU_ARM_INSTR_JUMP_TO_HANDLER                0xE59FF018
+
 void  BSP_IntSched(u8  int_type) ;
+
+void       undefined_instruction   (void);
+void       software_interrupt          (void);
+void       prefetch_abort(void);
+void       data_abort    (void);
+void       not_used    (void);
+void       irq          (void);
+void       fiq          (void);
+
+void  OS_CPU_InitExceptVect (void)
+{
+    (*(u32 *)OS_CPU_ARM_EXCEPT_UNDEF_INSTR_VECT_ADDR)       =         OS_CPU_ARM_INSTR_JUMP_TO_HANDLER;
+    (*(u32 *)OS_CPU_ARM_EXCEPT_UNDEF_INSTR_HANDLER_ADDR)    = (u32)undefined_instruction;
+
+    (*(u32 *)OS_CPU_ARM_EXCEPT_SWI_VECT_ADDR)               =         OS_CPU_ARM_INSTR_JUMP_TO_HANDLER;
+    (*(u32 *)OS_CPU_ARM_EXCEPT_SWI_HANDLER_ADDR)            = (u32)software_interrupt;
+
+    (*(u32 *)OS_CPU_ARM_EXCEPT_PREFETCH_ABORT_VECT_ADDR)    =         OS_CPU_ARM_INSTR_JUMP_TO_HANDLER;
+    (*(u32 *)OS_CPU_ARM_EXCEPT_PREFETCH_ABORT_HANDLER_ADDR) = (u32)prefetch_abort;
+
+    (*(u32 *)OS_CPU_ARM_EXCEPT_DATA_ABORT_VECT_ADDR)        =         OS_CPU_ARM_INSTR_JUMP_TO_HANDLER;
+    (*(u32 *)OS_CPU_ARM_EXCEPT_DATA_ABORT_HANDLER_ADDR)     = (u32)data_abort;
+
+    (*(u32 *)OS_CPU_ARM_EXCEPT_ADDR_ABORT_VECT_ADDR)        =         OS_CPU_ARM_INSTR_JUMP_TO_HANDLER;
+    (*(u32 *)OS_CPU_ARM_EXCEPT_ADDR_ABORT_HANDLER_ADDR)     = (u32)not_used;
+
+    (*(u32 *)OS_CPU_ARM_EXCEPT_IRQ_VECT_ADDR)               =         OS_CPU_ARM_INSTR_JUMP_TO_HANDLER;
+    (*(u32 *)OS_CPU_ARM_EXCEPT_IRQ_HANDLER_ADDR)            = (u32)irq;
+
+    (*(u32 *)OS_CPU_ARM_EXCEPT_FIQ_VECT_ADDR)               =         OS_CPU_ARM_INSTR_JUMP_TO_HANDLER;
+    (*(u32 *)OS_CPU_ARM_EXCEPT_FIQ_HANDLER_ADDR)            = (u32)fiq;
+}
 
 static void default_isr(void)
 {
@@ -56,10 +129,10 @@ void do_irq (struct pt_regs *pt_regs)
 	BSP_IntSched(BSP_INT_CTRL_TYPE_IRQ);
 }
 
-void irq_install_handler (u8     per_id,
-                      		u8     int_prio,
-                      		u8     int_src_type,
-                      		CPU_FNCT_VOID  int_isr_fnct)
+void CSP_IntVectSet (u8     per_id,
+										 u8     int_prio,
+										 u8     int_src_type,
+										 CPU_FNCT_VOID  int_isr_fnct)
 {
     u8  aic_scr_type;
                       
@@ -146,12 +219,12 @@ int arch_interrupt_init (void)
 
                                                                 /* Initialize all ISR's to the Dummy ISR handler      */
 	for (per_id = AT91_ID_FIQ; per_id < AT91_ID_MAX; per_id++) {     
-		irq_install_handler((u8   )per_id,
+		CSP_IntVectSet((u8   )per_id,
 												(u8   )BSP_INT_PRIO_LOWEST,
                         (u8   )BSP_INT_SCR_TYPE_INT_HIGH_LEVEL_SENSITIVE,
                         (CPU_FNCT_VOID)default_isr);
 		BSP_INT_AIC_EOICR = 0;
 	}
-
+	OS_CPU_InitExceptVect();
 	return (0);
 }
