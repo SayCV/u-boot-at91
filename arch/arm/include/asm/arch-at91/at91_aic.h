@@ -50,6 +50,7 @@ typedef struct at91_aic {
 #define  BSP_INT_AIC_FVR            (*(u32 *)(BSP_INT_AIC_BASE  + 0x0104))
 #define  BSP_INT_AIC_ISR            (*(u32 *)(BSP_INT_AIC_BASE  + 0x0108))
 #define  BSP_INT_AIC_IMR           (*(u32 *)(BSP_INT_AIC_BASE  + 0x0110))
+#define  BSP_INT_AIC_CISR           (*(u32 *)(BSP_INT_AIC_BASE  + 0x0114))
 #define  BSP_INT_AIC_IECR           (*(u32 *)(BSP_INT_AIC_BASE  + 0x0120))
 #define  BSP_INT_AIC_IDCR           (*(u32 *)(BSP_INT_AIC_BASE  + 0x0124))
 #define  BSP_INT_AIC_ICCR           (*(u32 *)(BSP_INT_AIC_BASE  + 0x0128))
