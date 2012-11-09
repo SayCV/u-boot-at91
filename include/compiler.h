@@ -9,6 +9,12 @@
 
 #ifdef USE_HOSTCC
 
+#if defined(__CYGWIN__)
+#include <endian.h>
+#define inline
+typedef unsigned long ulong;
+#endif
+
 #if defined(__BEOS__)	 || \
     defined(__NetBSD__)  || \
     defined(__FreeBSD__) || \
