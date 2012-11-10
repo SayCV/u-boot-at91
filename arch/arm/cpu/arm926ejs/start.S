@@ -158,6 +158,20 @@ reset:
 	orr	r0,r0,#0xd3
 	msr	cpsr,r0
 
+#if	defined(CONFIG_AT91SAM9X5_)
+	/*
+	 * relocate exception table
+	 */
+	ldr	r0, =_start
+	ldr	r1, =0x0
+	mov	r2, #16
+copyex:
+	subs	r2, r2, #1
+	ldr	r3, [r0], #4
+	str	r3, [r1], #4
+	bne	copyex
+#endif
+
 	/*
 	 * we do sys-critical inits only at reboot,
 	 * not when booting from ram!
@@ -245,12 +259,12 @@ cpu_init_crit:
 	/*
 	 * disable MMU stuff and caches
 	 */
-	mrc	p15, 0, r0, c1, c0, 0
+	mrc	p15, 0, r0, c1, c0, 0	/* Read  MMU C1 */
 	bic	r0, r0, #0x00002300	/* clear bits 13, 9:8 (--V- --RS) */
 	bic	r0, r0, #0x00000087	/* clear bits 7, 2:0 (B--- -CAM) */
 	orr	r0, r0, #0x00000002	/* set bit 2 (A) Align */
 	orr	r0, r0, #0x00001000	/* set bit 12 (I) I-Cache */
-	mcr	p15, 0, r0, c1, c0, 0
+	mcr	p15, 0, r0, c1, c0, 0	/* Write  MMU C1 */
 
 	/*
 	 * Go setup Memory and board specific bits prior to relocation.
