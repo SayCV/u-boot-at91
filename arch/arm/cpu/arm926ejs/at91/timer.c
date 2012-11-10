@@ -47,6 +47,7 @@ static volatile ulong timestamp;
 static void timer_isr(void)
 {
 	u32  status;
+	static u32 ledCtrl=0;
 	at91_pit_t *pit = (at91_pit_t *) AT91_PIT_BASE;
                                                           		/* Clear the PIT interrupt                            */
 	status = readl(&pit->pivr);
@@ -54,6 +55,16 @@ static void timer_isr(void)
                                                            		/* ... never used                                     */
                                                            		
 	timestamp++;
+
+	ledCtrl++;
+	
+	if(ledCtrl==1000*1000) {
+		ledCtrl=0;
+		green_LED_off();
+	}
+	if(ledCtrl==1000*500) {
+		green_LED_on();
+	}
 }
 
 ulong get_timer (ulong base)

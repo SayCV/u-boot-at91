@@ -209,6 +209,9 @@ void  BSP_IntSched(u8  int_type)
     }
 }
 
+#define CSP_MATRIX_MRCR_RCB0 (0x1u << 0) /**< \brief (MATRIX_MRCR) Remap Command Bit for Master 0 */
+#define CSP_MATRIX_MRCR_RCB1 (0x1u << 1) /**< \brief (MATRIX_MRCR) Remap Command Bit for Master 1 */
+#define REG_MATRIX_MRCR      (*(u32*)(0xFFFFDF00U)) /**< \brief (MATRIX) Master Remap Control Register */
 int arch_interrupt_init (void)
 {
 	u8  per_id;
@@ -225,6 +228,12 @@ int arch_interrupt_init (void)
                         (CPU_FNCT_VOID)default_isr);
 		BSP_INT_AIC_EOICR = 0;
 	}
+/**
+ * \brief Changes the mapping of the chip so that the remap area mirrors the
+ * internal RAM.
+ * void CSP_RemapRam( void )
+ */
+	REG_MATRIX_MRCR = CSP_MATRIX_MRCR_RCB0 | CSP_MATRIX_MRCR_RCB1;
 	OS_CPU_InitExceptVect();
 	return (0);
 }
