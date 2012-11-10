@@ -45,39 +45,39 @@
 */
 
                                                  /* ARM exception IDs                                  */
-#define  OS_CPU_ARM_EXCEPT_RESET                                                                    0x00
-#define  OS_CPU_ARM_EXCEPT_UNDEF_INSTR                                                              0x01
-#define  OS_CPU_ARM_EXCEPT_SWI                                                                      0x02
-#define  OS_CPU_ARM_EXCEPT_PREFETCH_ABORT                                                           0x03
-#define  OS_CPU_ARM_EXCEPT_DATA_ABORT                                                               0x04
-#define  OS_CPU_ARM_EXCEPT_ADDR_ABORT                                                               0x05
-#define  OS_CPU_ARM_EXCEPT_IRQ                                                                      0x06
-#define  OS_CPU_ARM_EXCEPT_FIQ                                                                      0x07
-#define  OS_CPU_ARM_EXCEPT_NBR                                                                      0x08
+#define  CPU_RELOCATE_ARM_EXCEPT_RESET                                                                    0x00
+#define  CPU_RELOCATE_ARM_EXCEPT_UNDEF_INSTR                                                              0x01
+#define  CPU_RELOCATE_ARM_EXCEPT_SWI                                                                      0x02
+#define  CPU_RELOCATE_ARM_EXCEPT_PREFETCH_ABORT                                                           0x03
+#define  CPU_RELOCATE_ARM_EXCEPT_DATA_ABORT                                                               0x04
+#define  CPU_RELOCATE_ARM_EXCEPT_ADDR_ABORT                                                               0x05
+#define  CPU_RELOCATE_ARM_EXCEPT_IRQ                                                                      0x06
+#define  CPU_RELOCATE_ARM_EXCEPT_FIQ                                                                      0x07
+#define  CPU_RELOCATE_ARM_EXCEPT_NBR                                                                      0x08
                                                  /* ARM exception vectors addresses                    */
-#define  OS_CPU_ARM_EXCEPT_RESET_VECT_ADDR              (OS_CPU_ARM_EXCEPT_RESET          * 0x04 + 0x00)
-#define  OS_CPU_ARM_EXCEPT_UNDEF_INSTR_VECT_ADDR        (OS_CPU_ARM_EXCEPT_UNDEF_INSTR    * 0x04 + 0x00)
-#define  OS_CPU_ARM_EXCEPT_SWI_VECT_ADDR                (OS_CPU_ARM_EXCEPT_SWI            * 0x04 + 0x00)
-#define  OS_CPU_ARM_EXCEPT_PREFETCH_ABORT_VECT_ADDR     (OS_CPU_ARM_EXCEPT_PREFETCH_ABORT * 0x04 + 0x00)
-#define  OS_CPU_ARM_EXCEPT_DATA_ABORT_VECT_ADDR         (OS_CPU_ARM_EXCEPT_DATA_ABORT     * 0x04 + 0x00)
-#define  OS_CPU_ARM_EXCEPT_ADDR_ABORT_VECT_ADDR         (OS_CPU_ARM_EXCEPT_ADDR_ABORT     * 0x04 + 0x00)
-#define  OS_CPU_ARM_EXCEPT_IRQ_VECT_ADDR                (OS_CPU_ARM_EXCEPT_IRQ            * 0x04 + 0x00)
-#define  OS_CPU_ARM_EXCEPT_FIQ_VECT_ADDR                (OS_CPU_ARM_EXCEPT_FIQ            * 0x04 + 0x00)
+#define  CPU_RELOCATE_ARM_EXCEPT_RESET_VECT_ADDR              (CPU_RELOCATE_ARM_EXCEPT_RESET          * 0x04 + 0x00)
+#define  CPU_RELOCATE_ARM_EXCEPT_UNDEF_INSTR_VECT_ADDR        (CPU_RELOCATE_ARM_EXCEPT_UNDEF_INSTR    * 0x04 + 0x00)
+#define  CPU_RELOCATE_ARM_EXCEPT_SWI_VECT_ADDR                (CPU_RELOCATE_ARM_EXCEPT_SWI            * 0x04 + 0x00)
+#define  CPU_RELOCATE_ARM_EXCEPT_PREFETCH_ABORT_VECT_ADDR     (CPU_RELOCATE_ARM_EXCEPT_PREFETCH_ABORT * 0x04 + 0x00)
+#define  CPU_RELOCATE_ARM_EXCEPT_DATA_ABORT_VECT_ADDR         (CPU_RELOCATE_ARM_EXCEPT_DATA_ABORT     * 0x04 + 0x00)
+#define  CPU_RELOCATE_ARM_EXCEPT_ADDR_ABORT_VECT_ADDR         (CPU_RELOCATE_ARM_EXCEPT_ADDR_ABORT     * 0x04 + 0x00)
+#define  CPU_RELOCATE_ARM_EXCEPT_IRQ_VECT_ADDR                (CPU_RELOCATE_ARM_EXCEPT_IRQ            * 0x04 + 0x00)
+#define  CPU_RELOCATE_ARM_EXCEPT_FIQ_VECT_ADDR                (CPU_RELOCATE_ARM_EXCEPT_FIQ            * 0x04 + 0x00)
 
                                                  /* ARM exception handlers addresses                   */
-#define  OS_CPU_ARM_EXCEPT_RESET_HANDLER_ADDR           (OS_CPU_ARM_EXCEPT_RESET          * 0x04 + 0x20)
-#define  OS_CPU_ARM_EXCEPT_UNDEF_INSTR_HANDLER_ADDR     (OS_CPU_ARM_EXCEPT_UNDEF_INSTR    * 0x04 + 0x20)
-#define  OS_CPU_ARM_EXCEPT_SWI_HANDLER_ADDR             (OS_CPU_ARM_EXCEPT_SWI            * 0x04 + 0x20)
-#define  OS_CPU_ARM_EXCEPT_PREFETCH_ABORT_HANDLER_ADDR  (OS_CPU_ARM_EXCEPT_PREFETCH_ABORT * 0x04 + 0x20)
-#define  OS_CPU_ARM_EXCEPT_DATA_ABORT_HANDLER_ADDR      (OS_CPU_ARM_EXCEPT_DATA_ABORT     * 0x04 + 0x20)
-#define  OS_CPU_ARM_EXCEPT_ADDR_ABORT_HANDLER_ADDR      (OS_CPU_ARM_EXCEPT_ADDR_ABORT     * 0x04 + 0x20)
-#define  OS_CPU_ARM_EXCEPT_IRQ_HANDLER_ADDR             (OS_CPU_ARM_EXCEPT_IRQ            * 0x04 + 0x20)
-#define  OS_CPU_ARM_EXCEPT_FIQ_HANDLER_ADDR             (OS_CPU_ARM_EXCEPT_FIQ            * 0x04 + 0x20)
+#define  CPU_RELOCATE_ARM_EXCEPT_RESET_HANDLER_ADDR           (CPU_RELOCATE_ARM_EXCEPT_RESET          * 0x04 + 0x20)
+#define  CPU_RELOCATE_ARM_EXCEPT_UNDEF_INSTR_HANDLER_ADDR     (CPU_RELOCATE_ARM_EXCEPT_UNDEF_INSTR    * 0x04 + 0x20)
+#define  CPU_RELOCATE_ARM_EXCEPT_SWI_HANDLER_ADDR             (CPU_RELOCATE_ARM_EXCEPT_SWI            * 0x04 + 0x20)
+#define  CPU_RELOCATE_ARM_EXCEPT_PREFETCH_ABORT_HANDLER_ADDR  (CPU_RELOCATE_ARM_EXCEPT_PREFETCH_ABORT * 0x04 + 0x20)
+#define  CPU_RELOCATE_ARM_EXCEPT_DATA_ABORT_HANDLER_ADDR      (CPU_RELOCATE_ARM_EXCEPT_DATA_ABORT     * 0x04 + 0x20)
+#define  CPU_RELOCATE_ARM_EXCEPT_ADDR_ABORT_HANDLER_ADDR      (CPU_RELOCATE_ARM_EXCEPT_ADDR_ABORT     * 0x04 + 0x20)
+#define  CPU_RELOCATE_ARM_EXCEPT_IRQ_HANDLER_ADDR             (CPU_RELOCATE_ARM_EXCEPT_IRQ            * 0x04 + 0x20)
+#define  CPU_RELOCATE_ARM_EXCEPT_FIQ_HANDLER_ADDR             (CPU_RELOCATE_ARM_EXCEPT_FIQ            * 0x04 + 0x20)
 
                                                  /* ARM "Jump To Self" asm instruction                 */
-#define  OS_CPU_ARM_INSTR_JUMP_TO_SELF                   0xEAFFFFFE
+#define  CPU_RELOCATE_ARM_INSTR_JUMP_TO_SELF                   0xEAFFFFFE
                                                  /* ARM "Jump To Exception Handler" asm instruction    */
-#define  OS_CPU_ARM_INSTR_JUMP_TO_HANDLER                0xE59FF018
+#define  CPU_RELOCATE_ARM_INSTR_JUMP_TO_HANDLER                0xE59FF018
 
 void  BSP_IntSched(u8  int_type) ;
 
@@ -89,28 +89,28 @@ void       not_used    (void);
 void       irq          (void);
 void       fiq          (void);
 
-void  OS_CPU_InitExceptVect (void)
+void  CPU_Relocate_InitExceptVect (void)
 {
-    (*(u32 *)OS_CPU_ARM_EXCEPT_UNDEF_INSTR_VECT_ADDR)       =         OS_CPU_ARM_INSTR_JUMP_TO_HANDLER;
-    (*(u32 *)OS_CPU_ARM_EXCEPT_UNDEF_INSTR_HANDLER_ADDR)    = (u32)undefined_instruction;
+    (*(u32 *)CPU_RELOCATE_ARM_EXCEPT_UNDEF_INSTR_VECT_ADDR)       =         CPU_RELOCATE_ARM_INSTR_JUMP_TO_HANDLER;
+    (*(u32 *)CPU_RELOCATE_ARM_EXCEPT_UNDEF_INSTR_HANDLER_ADDR)    = (u32)undefined_instruction;
 
-    (*(u32 *)OS_CPU_ARM_EXCEPT_SWI_VECT_ADDR)               =         OS_CPU_ARM_INSTR_JUMP_TO_HANDLER;
-    (*(u32 *)OS_CPU_ARM_EXCEPT_SWI_HANDLER_ADDR)            = (u32)software_interrupt;
+    (*(u32 *)CPU_RELOCATE_ARM_EXCEPT_SWI_VECT_ADDR)               =         CPU_RELOCATE_ARM_INSTR_JUMP_TO_HANDLER;
+    (*(u32 *)CPU_RELOCATE_ARM_EXCEPT_SWI_HANDLER_ADDR)            = (u32)software_interrupt;
 
-    (*(u32 *)OS_CPU_ARM_EXCEPT_PREFETCH_ABORT_VECT_ADDR)    =         OS_CPU_ARM_INSTR_JUMP_TO_HANDLER;
-    (*(u32 *)OS_CPU_ARM_EXCEPT_PREFETCH_ABORT_HANDLER_ADDR) = (u32)prefetch_abort;
+    (*(u32 *)CPU_RELOCATE_ARM_EXCEPT_PREFETCH_ABORT_VECT_ADDR)    =         CPU_RELOCATE_ARM_INSTR_JUMP_TO_HANDLER;
+    (*(u32 *)CPU_RELOCATE_ARM_EXCEPT_PREFETCH_ABORT_HANDLER_ADDR) = (u32)prefetch_abort;
 
-    (*(u32 *)OS_CPU_ARM_EXCEPT_DATA_ABORT_VECT_ADDR)        =         OS_CPU_ARM_INSTR_JUMP_TO_HANDLER;
-    (*(u32 *)OS_CPU_ARM_EXCEPT_DATA_ABORT_HANDLER_ADDR)     = (u32)data_abort;
+    (*(u32 *)CPU_RELOCATE_ARM_EXCEPT_DATA_ABORT_VECT_ADDR)        =         CPU_RELOCATE_ARM_INSTR_JUMP_TO_HANDLER;
+    (*(u32 *)CPU_RELOCATE_ARM_EXCEPT_DATA_ABORT_HANDLER_ADDR)     = (u32)data_abort;
 
-    (*(u32 *)OS_CPU_ARM_EXCEPT_ADDR_ABORT_VECT_ADDR)        =         OS_CPU_ARM_INSTR_JUMP_TO_HANDLER;
-    (*(u32 *)OS_CPU_ARM_EXCEPT_ADDR_ABORT_HANDLER_ADDR)     = (u32)not_used;
+    (*(u32 *)CPU_RELOCATE_ARM_EXCEPT_ADDR_ABORT_VECT_ADDR)        =         CPU_RELOCATE_ARM_INSTR_JUMP_TO_HANDLER;
+    (*(u32 *)CPU_RELOCATE_ARM_EXCEPT_ADDR_ABORT_HANDLER_ADDR)     = (u32)not_used;
 
-    (*(u32 *)OS_CPU_ARM_EXCEPT_IRQ_VECT_ADDR)               =         OS_CPU_ARM_INSTR_JUMP_TO_HANDLER;
-    (*(u32 *)OS_CPU_ARM_EXCEPT_IRQ_HANDLER_ADDR)            = (u32)irq;
+    (*(u32 *)CPU_RELOCATE_ARM_EXCEPT_IRQ_VECT_ADDR)               =         CPU_RELOCATE_ARM_INSTR_JUMP_TO_HANDLER;
+    (*(u32 *)CPU_RELOCATE_ARM_EXCEPT_IRQ_HANDLER_ADDR)            = (u32)irq;
 
-    (*(u32 *)OS_CPU_ARM_EXCEPT_FIQ_VECT_ADDR)               =         OS_CPU_ARM_INSTR_JUMP_TO_HANDLER;
-    (*(u32 *)OS_CPU_ARM_EXCEPT_FIQ_HANDLER_ADDR)            = (u32)fiq;
+    (*(u32 *)CPU_RELOCATE_ARM_EXCEPT_FIQ_VECT_ADDR)               =         CPU_RELOCATE_ARM_INSTR_JUMP_TO_HANDLER;
+    (*(u32 *)CPU_RELOCATE_ARM_EXCEPT_FIQ_HANDLER_ADDR)            = (u32)fiq;
 }
 
 static void default_isr(void)
@@ -225,6 +225,6 @@ int arch_interrupt_init (void)
                         (CPU_FNCT_VOID)default_isr);
 		BSP_INT_AIC_EOICR = 0;
 	}
-	OS_CPU_InitExceptVect();
+	CPU_Relocate_InitExceptVect();
 	return (0);
 }
