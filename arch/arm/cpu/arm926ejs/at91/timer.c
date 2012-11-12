@@ -24,10 +24,13 @@
 
 #include <common.h>
 #include <asm/arch/hardware.h>
+#include <asm/arch/at91sam9x5.h>
+#include <asm/arch/at91_common.h>
 #include <asm/arch/at91_aic.h>
 #include <asm/arch/at91_pit.h>
 #include <asm/arch/at91_pmc.h>
 #include <asm/arch/clk.h>
+#include <asm/arch/gpio.h>
 #include <asm/arch/io.h>
 #include <div64.h>
 
@@ -43,11 +46,12 @@ unsigned long get_mck_clk_rate(void);
  */
 
 static volatile ulong timestamp;
+static u32 ledCtrl=0;
 
 static void timer_isr(void)
 {
 	u32  status;
-	static u32 ledCtrl=0;
+	
 	at91_pit_t *pit = (at91_pit_t *) AT91_PIT_BASE;
                                                           		/* Clear the PIT interrupt                            */
 	status = readl(&pit->pivr);
@@ -58,7 +62,7 @@ static void timer_isr(void)
 
 	ledCtrl++;
 	
-	//printf("timer_isr():  called for timer IRQ.\n");
+	//printf("timer_isr():  called for timer IRQ:%d,%d.\n",0,1);
 	
 	if(ledCtrl==500) {
 		//ledCtrl=0;
@@ -109,7 +113,7 @@ int timer_init (void)
 
                                                                 /* Enable the PIT with the correct compare value.     */
 	writel(cnts | AT91_PIT_PITEN | AT91_PIT_PITIEN, &pit->mr);
-
+	reset_timer();
 	return 0;
 }
 

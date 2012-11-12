@@ -130,7 +130,8 @@ void at91_serial_hw_init(void)
 #ifdef CONFIG_USART3	/* DBGU */
 	at91_serial3_hw_init();
 #endif
-	at91_set_a_periph(AT91_PIO_PORTC, 4, 0); /* Green LED Init to ON. */
+	at91_set_pio_output(AT91_PIO_PORTC, 4, 1); /* Green LED Init to ON. */
+	at91_set_pio_pullup(AT91_PIO_PORTC, 4, 1); 
 }
 
 #ifdef CONFIG_ATMEL_SPI
