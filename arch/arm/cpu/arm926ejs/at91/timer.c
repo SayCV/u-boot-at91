@@ -59,13 +59,9 @@ static void timer_isr(void)
                                                            		/* ... never used                                     */
                                                            		
 	timestamp++;
-
 	ledCtrl++;
-	
-	//printf("timer_isr():  called for timer IRQ:%d,%d.\n",0,1);
-	
+
 	if(ledCtrl==500) {
-		//ledCtrl=0;
 		green_LED_off();
 	}
 	if(ledCtrl==1000) {
