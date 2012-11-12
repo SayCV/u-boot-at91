@@ -70,9 +70,9 @@ void load_1wire_info(void)
 #define nand_nfd0_on_d16(rev)	(cm_rev(rev) > 0)
 #define nand_alt_rdy_busy(rev)	(cm_rev(rev) > 0)
 #else
-/* If no One Wire information: assume we are using revA boards */
-#define nand_nfd0_on_d16(rev)	0
-#define nand_alt_rdy_busy(rev)	0
+/* If no One Wire information: assume we are using revB boards */
+#define nand_nfd0_on_d16(rev)	1
+#define nand_alt_rdy_busy(rev)	1
 #endif
 
 /* ------------------------------------------------------------------------- */

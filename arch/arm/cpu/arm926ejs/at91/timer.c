@@ -58,11 +58,14 @@ static void timer_isr(void)
 
 	ledCtrl++;
 	
-	if(ledCtrl==1000*1000) {
-		ledCtrl=0;
+	//printf("timer_isr():  called for timer IRQ.\n");
+	
+	if(ledCtrl==500) {
+		//ledCtrl=0;
 		green_LED_off();
 	}
-	if(ledCtrl==1000*500) {
+	if(ledCtrl==1000) {
+		ledCtrl=0;
 		green_LED_on();
 	}
 }
@@ -87,7 +90,7 @@ int timer_init (void)
                                                                 /* Determine the number of counts per tick.           */
 	mclk_freq = get_mck_clk_rate();
 
-	cnts      = ((mclk_freq) / 16 / tick_per_sec / 1000) - 1;			/* 1 ticks = 1us */
+	cnts      = ((mclk_freq) / 16 / tick_per_sec ) - 1;			/* 1 ticks = 1us */
     
 	/*
 	 * Enable PITC Clock
@@ -110,16 +113,25 @@ int timer_init (void)
 	return 0;
 }
 
+/** Frequency of the board main oscillator */
+#define BOARD_MAINOSC           12000000
+
+/** Master clock frequency (when using board_lowlevel.c) */
+#define BOARD_MCK                ((unsigned long)((BOARD_MAINOSC / 3 / 2 / 3) * 200 ))
+void CSP_Delay (volatile unsigned int num )
+{
+  volatile unsigned int us;
+  
+  for(; num > 0; num--) {
+    for( us = ( BOARD_MCK/100000000 ); us > 0; us--) {
+      asm("nop");
+    }
+  }
+}
+
 void __udelay(unsigned long usec)
 {
-	unsigned long long tmp;
-	ulong tmo;
-
-	tmo = usec * ((get_mck_clk_rate() >> 4)/1000000);
-	tmp = timestamp + tmo;	/* get current timestamp */
-
-	while (timestamp < tmp)	/* loop till event */
-		 /*NOP*/;
+	CSP_Delay(usec);
 }
 
 #else

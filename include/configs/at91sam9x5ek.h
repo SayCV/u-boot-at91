@@ -50,6 +50,7 @@
 #define CONFIG_INITRD_TAG	1
 
 #define CONFIG_LOAD_ONE_WIRE_INFO	1
+#undef	CONFIG_LOAD_ONE_WIRE_INFO
 #ifdef CONFIG_LOAD_ONE_WIRE_INFO
 #define CONFIG_REVISION_TAG	1       /* get the one-wire board information */
 #define CONFIG_SERIAL_TAG	1

@@ -26,6 +26,8 @@
 #include <asm/arch/clk.h>
 #include <asm/arch/memory-map.h>
 
+#define CONFIG_AT91_BRD_TYPE CONFIG_AT91_BRD_B
+
 #if defined(CONFIG_USART0)
 # define USART_ID	0
 # define USART_BASE	USART0_BASE
