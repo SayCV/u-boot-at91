@@ -1372,6 +1372,7 @@ static int do_bootm_rtems (int flag, int argc, char *argv[],
 #endif
 
 	entry_point = (void (*)(bd_t *))images->ep;
+	disable_interrupts();/* SayCV */
 
 	printf ("## Transferring control to RTEMS (at address %08lx) ...\n",
 		(ulong)entry_point);
