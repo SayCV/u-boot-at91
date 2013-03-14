@@ -167,7 +167,7 @@ static void macb_mdio_write(struct macb_device *macb, u8 reg, u16 value)
 		netstat = macb_readl(macb, NSR);
 	} while (!(netstat & MACB_BIT(IDLE)));
 #else
-    if ( macb_phy_wait(macb, retry) == 0 )
+    if ( macb_phy_wait(macb, MACB_RETRY_MAX) == 0 )
     {
         printf("TimeOut macb_mdio_write\n");
         return 0;
@@ -200,7 +200,7 @@ static u16 macb_mdio_read(struct macb_device *macb, u8 reg)
 		netstat = macb_readl(macb, NSR);
 	} while (!(netstat & MACB_BIT(IDLE)));
 #else
-    if ( macb_phy_wait(macb, retry) == 0 )
+    if ( macb_phy_wait(macb, MACB_RETRY_MAX) == 0 )
     {
         printf("TimeOut macb_mdio_write\n");
         return 0;
