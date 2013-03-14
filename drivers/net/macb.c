@@ -57,7 +57,7 @@
 #define CONFIG_SYS_MACB_RX_RING_SIZE		(CONFIG_SYS_MACB_RX_BUFFER_SIZE / 128)
 #define CONFIG_SYS_MACB_TX_RING_SIZE		16
 #define CONFIG_SYS_MACB_TX_TIMEOUT		1000
-#define CONFIG_SYS_MACB_AUTONEG_TIMEOUT	5000
+#define CONFIG_SYS_MACB_AUTONEG_TIMEOUT	5000000
 
 struct macb_dma_desc {
 	u32	addr;
@@ -108,6 +108,43 @@ struct macb_device {
 };
 #define to_macb(_nd) container_of(_nd, struct macb_device, netdev)
 
+/** Default max retry count */
+#define MACB_RETRY_MAX            1000000
+
+/*---------------------------------------------------------------------------
+ *         Local functions
+ *---------------------------------------------------------------------------*/
+
+/**
+ * Return 1 if PHY is idle
+ */
+uint8_t macb_phy_is_idle( struct macb_device *macb )
+{
+    return ( (macb_readl(macb, NSR) & MACB_BIT(IDLE)) > 0 );
+}
+
+/**
+ * Wait PHY operation complete.
+ * Return 1 if the operation completed successfully.
+ * May be need to re-implemented to reduce CPU load.
+ * \param retry: the retry times, 0 to wait forever until complete.
+ */
+static uint8_t macb_phy_wait( struct macb_device *macb, uint32_t retry )
+{
+    volatile uint32_t retry_count = 0;
+
+    while (!macb_phy_is_idle(macb))
+    {
+        if(retry == 0) continue;
+        retry_count ++;
+        if (retry_count >= retry)
+        {
+            return 0;
+        }
+    }
+    return 1;
+}
+
 static void macb_mdio_write(struct macb_device *macb, u8 reg, u16 value)
 {
 	unsigned long netctl;
@@ -125,11 +162,17 @@ static void macb_mdio_write(struct macb_device *macb, u8 reg, u16 value)
 		 | MACB_BF(CODE, 2)
 		 | MACB_BF(DATA, value));
 	macb_writel(macb, MAN, frame);
-
+#if 0
 	do {
 		netstat = macb_readl(macb, NSR);
 	} while (!(netstat & MACB_BIT(IDLE)));
-
+#else
+    if ( macb_phy_wait(macb, retry) == 0 )
+    {
+        printf("TimeOut macb_mdio_write\n");
+        return 0;
+    }
+#endif
 	netctl = macb_readl(macb, NCR);
 	netctl &= ~MACB_BIT(MPE);
 	macb_writel(macb, NCR, netctl);
@@ -152,9 +195,17 @@ static u16 macb_mdio_read(struct macb_device *macb, u8 reg)
 		 | MACB_BF(CODE, 2));
 	macb_writel(macb, MAN, frame);
 
+#if 0
 	do {
 		netstat = macb_readl(macb, NSR);
 	} while (!(netstat & MACB_BIT(IDLE)));
+#else
+    if ( macb_phy_wait(macb, retry) == 0 )
+    {
+        printf("TimeOut macb_mdio_write\n");
+        return 0;
+    }
+#endif
 
 	frame = macb_readl(macb, MAN);
 
